@@ -1,0 +1,23 @@
+{
+  "name": "space-flight",
+  "version": "1.0.0",
+  "description": "Coodesh Back-End Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sirhennig",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^11.0.0",
+    "express": "^4.17.2",
+    "helmet": "^5.0.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.13.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-coffee": "^3.0.3"
+  }
+}
