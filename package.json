@@ -4,6 +4,7 @@
   "description": "Coodesh Back-End Challenge",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sirhennig",

@@ -19,8 +19,6 @@ gulp.task 'default', () ->
 				'.env',
 				'*.json',
 				'**/*.json',
-				'*.pug',
-				'**/*.pug',
 				'!node_modules/*',
 				'!node_modules/**/*'
 			], {
@@ -37,8 +35,6 @@ gulp.task 'watch', () ->
 	gulp.watch [
 		'*.coffee',
 		'**/*.coffee',
-		'*.pug',
-		'**/*.pug',
 		'!node_modules/*',
 		'!node_modules/**/*'
 	], gulp.series 'default'
