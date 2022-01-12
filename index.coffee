@@ -4,8 +4,6 @@ express = require 'express'
 helmet = require 'helmet'
 
 port = process.env.PORT
-console.log '############ port'
-console.log port
 
 ###
 db = require('./models');
@@ -18,7 +16,9 @@ app.use helmet()
 
 # Routes Definitions
 app.get "/", (req, res) ->
-  res.status(200).send "Funcionou, piá"
+  res.status(200).send "Back-end Challenge 2021 🏅 - Space Flight News"
+
+require('./routes/articles') app
 
 # Server Activation
 app.listen port, () -> 

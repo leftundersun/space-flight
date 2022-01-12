@@ -13,7 +13,7 @@ gulp.task 'default', () ->
 			.pipe coffee()
 			.on 'error', (e) ->
 				console.log e.toString()
-			.pipe gulp.dest '../dist'
+			.pipe gulp.dest './dist'
 
 			gulp.src [
 				'.env',
@@ -26,7 +26,7 @@ gulp.task 'default', () ->
 			], {
 				'allowEmpty': true
 			}
-			.pipe gulp.dest '../dist'
+			.pipe gulp.dest './dist'
 
 			accept()
 		catch e
