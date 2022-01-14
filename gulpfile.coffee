@@ -8,7 +8,9 @@ gulp.task 'default', () ->
 				'*.coffee',
 				'**/*.coffee',
 				'!node_modules/*',
-				'!node_modules/**/*'
+				'!node_modules/**/*',
+				'!dist/*',
+				'!dist/**/*'
 			]
 			.pipe coffee()
 			.on 'error', (e) ->
@@ -20,7 +22,9 @@ gulp.task 'default', () ->
 				'*.json',
 				'**/*.json',
 				'!node_modules/*',
-				'!node_modules/**/*'
+				'!node_modules/**/*',
+				'!dist/*',
+				'!dist/**/*'
 			], {
 				'allowEmpty': true
 			}
@@ -36,5 +40,7 @@ gulp.task 'watch', () ->
 		'*.coffee',
 		'**/*.coffee',
 		'!node_modules/*',
-		'!node_modules/**/*'
+		'!node_modules/**/*',
+		'!dist/*',
+		'!dist/**/*'
 	], gulp.series 'default'

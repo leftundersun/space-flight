@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) ->
   sequelize.define "article", {
+    id: {
+      type: Sequelize.INTEGER(11)
+      primaryKey: true
+      allowNull: false
+      autoIncrement: false
+    }
     featured: {
       type: Sequelize.BOOLEAN
       allowNull: false
