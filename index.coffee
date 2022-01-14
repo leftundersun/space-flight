@@ -19,6 +19,9 @@ app.get "/", (req, res) ->
 
 require('./routes/articles') app
 
+# Set cron
+require('./services/retrieve').setCron()
+
 # Server Activation
 app.listen port, () -> 
   console.log "Ouvindo http://localhost:#{port}"
