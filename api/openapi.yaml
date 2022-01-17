@@ -1,0 +1,190 @@
+openapi: 3.0.1
+info:
+  title: API de artigos do Space Flight News
+  description: Essa é uma API Node.js para salvar e obter artigos publicados pelo Space Flight News.
+  version: 1.0.0
+tags:
+- name: articles
+  description: Artigos publicados pelo Space Flight News
+paths:
+  /articles:
+    get:
+      tags:
+      - articles
+      summary: Obter todos os artigos, cada página retorna 500
+      parameters:
+        - name: page
+          description: Página a ser retornada
+          in: query
+          required: false
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: Retorna até 500 artigos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Articles'
+    post:
+      tags:
+      - articles
+      summary: Cadastrar um novo artigo
+      requestBody:
+        description: Dados do artigo a ser criado
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        "201":
+          description: Artigo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+        "400":
+          description: Dados do artigo inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+  /articles/{id}:
+    get:
+      tags:
+      - articles
+      summary: Obter um artigo pelo id
+      parameters:
+      - name: id
+        in: path
+        description: Id do artigo a ser obtido
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Artigo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        "404":
+          description: Artigo não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+    put:
+      tags:
+      - articles
+      summary: Editar um artigo
+      parameters:
+      - name: id
+        in: path
+        description: Id do artigo a ser editado
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Dados a serem editados no artigo
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        "200":
+          description: Artigo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+        "400":
+          description: Dados do artigo inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+    delete:
+      tags:
+      - articles
+      summary: Excluir um artigo
+      parameters:
+      - name: id
+        in: path
+        description: Id do artigo a ser excluído
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Artigo excluído
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+        "404":
+          description: Artigo não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicResponse'
+components:
+  schemas:
+    BasicResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Articles:
+      type: array
+      items:
+        $ref: '#/components/schemas/Article'
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+        featured:
+          type: boolean
+        title:
+          type: string
+        url:
+          type: string
+        imageUrl:
+          type: string
+        newsSite:
+          type: string
+        summary:
+          type: string
+        publishedAt:
+          type: string
+        launches:
+          $ref: '#/components/schemas/Launches'
+        events:
+          $ref: '#/components/schemas/Events'
+    Launches:
+      type: array
+      items:
+        $ref: '#/components/schemas/Launch'
+    Launch:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+    Events:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string

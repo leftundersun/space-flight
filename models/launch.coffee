@@ -12,6 +12,6 @@ module.exports = (sequelize, Sequelize) ->
     }
   }, {
     tableName: 'launches'
-    underscored: true
+    underscored: false
     timestamps: false
   }

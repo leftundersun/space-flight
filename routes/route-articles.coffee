@@ -6,7 +6,7 @@ module.exports = (app) ->
   articles = require('express').Router()
 
   articles.get '/', (req, res) ->
-    articleCtrl.findAll(req.params.page).then (articles) ->
+    articleCtrl.findAll(req.query.page).then (articles) ->
       res
         .status 200
         .json articles

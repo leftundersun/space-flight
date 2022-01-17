@@ -35,6 +35,6 @@ module.exports = (sequelize, Sequelize) ->
       allowNull: false
     }
   }, {
-    underscored: true,
-    timestamps:false,
+    underscored: false
+    timestamps: false
   }

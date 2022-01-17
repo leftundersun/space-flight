@@ -11,6 +11,6 @@ module.exports = (sequelize, Sequelize) ->
       allowNull: false
     }
   }, {
-    underscored: true
+    underscored: false
     timestamps: false
   }

@@ -23,10 +23,10 @@ Object.keys(db).forEach (modelName) ->
   if db[modelName].associate
     db[modelName].associate db
 
-db.article.belongsToMany( db.launch, through: 'article_launches' )
-db.launch.belongsToMany( db.article, through: 'article_launches' )
-db.article.belongsToMany( db.event, through: 'article_events' )
-db.event.belongsToMany( db.article, through: 'article_events' )
+db.article.belongsToMany( db.launch, { through: 'article_launches', timestamps: false })
+db.launch.belongsToMany( db.article, { through: 'article_launches', timestamps: false })
+db.article.belongsToMany( db.event, { through: 'article_events', timestamps: false })
+db.event.belongsToMany( db.article, { through: 'article_events', timestamps: false })
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

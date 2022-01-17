@@ -12,7 +12,7 @@ findAll = (page, tx=null) ->
 
     options = {
       limit: perPage
-      offset: ( (page or 1) - 1) * perPage
+      offset: ( (parseInt(page) or 1) - 1) * perPage
       order: [
         ['id', 'ASC']
       ]

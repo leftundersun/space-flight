@@ -1,7 +1,7 @@
 # Space Flight News Articles API
 
 ## Visão geral
-Essa é uma recriação em Node.js da API de artigos do Space Flight News.
+Essa é uma API em Node.js de artigos do Space Flight News.
 
 ### Rodando pela primeira vez
 Para rodar a api pela primeira vez, siga os seguintes passos:
