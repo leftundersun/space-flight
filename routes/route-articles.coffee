@@ -7,49 +7,32 @@ module.exports = (app) ->
 
   articles.get '/', (req, res) ->
     articleCtrl.findAll(req.query.page).then (articles) ->
-      res
-        .status 200
-        .json articles
+      writter.sendData req, res, 200, articles
     .catch (err) ->
-      console.log err
-      writter.sendError res, err
+      writter.sendError req, res, err
 
   articles.get '/:id', (req, res) ->
     articleCtrl.findOne(req.params.id).then (article) ->
-      res
-        .status 200
-        .json article
+      writter.sendData req, res, 200, article
     .catch (err) ->
-      console.log err
-      writter.sendError res, err
+      writter.sendError req, res, err
 
   articles.post '/', (req, res) ->
-    console.log '########## req'
-    console.log req
-    console.log '########## req.body'
-    console.log req.body
     articleCtrl.create(req.body).then () ->
-      res.sendStatus 201
+      writter.sendSuccess req, res, 201, "Criado com sucesso"
     .catch (err) ->
-      console.log err
-      writter.sendError res, err
+      writter.sendError req, res, err
 
   articles.put '/:id', (req, res) ->
-    console.log '########## req'
-    console.log req
-    console.log '########## req.body'
-    console.log req.body
     articleCtrl.edit(req.body, req.params.id).then () ->
-      res.sendStatus 200
+      writter.sendSuccess req, res, 200, "Atualizado com sucesso"
     .catch (err) ->
-      console.log err
-      writter.sendError res, err
+      writter.sendError req, res, err
 
   articles.delete '/:id', (req, res) ->
     articleCtrl.delete(req.params.id).then () ->
-      res.sendStatus 200
+      writter.sendSuccess req, res, 200, "Excluído com sucesso"
     .catch (err) ->
-      console.log err
-      writter.sendError res, err
+      writter.sendError req, res, err
 
   app.use '/articles', articles

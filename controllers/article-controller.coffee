@@ -120,7 +120,7 @@ edit = (data, id, tx=null) ->
     if not tx
       db.sequelize.transaction( (tx) ->
         new Promise (accept, reject) ->
-          create(data, tx).then () ->
+          edit(data, id, tx).then () ->
             accept()
           .catch (err) ->
             reject err
@@ -130,39 +130,33 @@ edit = (data, id, tx=null) ->
         reject err
     else
       findOne(id, tx).then (article) ->
-        if not article
-          reject {
-            status: 404
-            message: "O artigo solicitado não foi encontrado"
-          }
-        else
-          foreach(data.launches or [], (launch) ->
+        foreach(data.launches or [], (launch) ->
+          new Promise (accept, reject) ->
+            launchCtrl.create(launch, tx).then () ->
+              accept()
+            .catch (err) ->
+              reject err
+        ).then () ->
+
+          foreach(data.events or [], (event) ->
             new Promise (accept, reject) ->
-              launchCtrl.create(launch, tx).then () ->
+              eventCtrl.create(event, tx).then () ->
                 accept()
               .catch (err) ->
                 reject err
           ).then () ->
 
-            foreach(data.events or [], (event) ->
-              new Promise (accept, reject) ->
-                eventCtrl.create(event, tx).then () ->
+            delete data.id
+            console.log '########## data'
+            console.log data
+            Article.update(data, { where: { id: id }, transaction: tx }).then () ->
+              
+              updateArticleLaunches(article, data.launches, tx).then () ->
+
+                updateArticleEvents(article, data.events, tx).then () ->
+
                   accept()
-                .catch (err) ->
-                  reject err
-            ).then () ->
 
-              delete data.id
-              Article.update(data, { where: { id: id }, transaction: tx }).then () ->
-                
-                updateArticleLaunches(article, data.launches, tx).then () ->
-
-                  updateArticleEvents(article, data.events, tx).then () ->
-
-                    accept()
-
-                  .catch (err) ->
-                    reject err
                 .catch (err) ->
                   reject err
               .catch (err) ->
@@ -171,6 +165,8 @@ edit = (data, id, tx=null) ->
               reject err
           .catch (err) ->
             reject err
+        .catch (err) ->
+          reject err
       .catch (err) ->
         reject err
 
@@ -208,19 +204,32 @@ updateArticleEvents = (article, events, tx) ->
 
 exclude = (id) ->
   new Promise (accept, reject) ->
-    findOne(id).then (article) ->
-      if not article
-        reject {
-          status: 404
-          message: "O artigo solicitado não foi encontrado"
-        }
-      else
-        article.destroy().then () ->
-          accept()
+    db.sequelize.transaction( (tx) ->
+      new Promise (accept, reject) ->
+        findOne(id, tx).then (article) ->
+          
+          articleEvents = Array.from article.events, (event) -> event.id
+          article.removeEvents(articleEvents, { transaction: tx }).then () ->
+          
+            articleLaunches = Array.from article.launches, (launch) -> launch.id
+            article.removeLaunches(articleLaunches, { transaction: tx }).then () ->
+
+              article.destroy(transaction: tx).then () ->
+                accept()
+              .catch (err) ->
+                reject err
+
+            .catch (err) ->
+              reject err
+          .catch (err) ->
+            reject err
         .catch (err) ->
           reject err
+    ).then () ->
+      accept()
     .catch (err) ->
       reject err
+
 
 exports.findAll = findAll
 exports.findOne = findOne

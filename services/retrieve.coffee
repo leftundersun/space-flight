@@ -1,11 +1,10 @@
 db = require '../models'
 Article = db.article
-Launch = db.launch
-Event = db.event
 axios = require 'axios'
 cron = require 'node-cron'
 articleCtrl = require '../controllers/article-controller'
 foreach = require '../utils/foreach'
+logger = require '../utils/logger'
 
 axiosInstance = axios.create {
   baseURL: 'https://api.spaceflightnewsapi.net/v3/articles'
@@ -39,11 +38,11 @@ exports.all = () ->
       accept()
     .catch (err) ->
       reject err
-      
+
 exports.setCron = () ->
   cron.schedule '0 9 * * *', () ->
     getNew().then () ->
-      console.log 'Executado com sucesso'
+      logger.info "Executada atualização diária de artigos"
     .catch (err) ->
       console.log err
 
