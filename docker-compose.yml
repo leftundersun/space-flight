@@ -7,6 +7,8 @@ services:
   app:
     build: .
     image: space_flight
+    volumes:
+      - logs:app/logs
     depends_on:
       - db
     ports:

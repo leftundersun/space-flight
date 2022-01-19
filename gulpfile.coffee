@@ -10,8 +10,12 @@ gulp.task 'default', () ->
         '!node_modules',
         '!node_modules/*',
         '!node_modules/**/*',
+        '!dist',
         '!dist/*',
-        '!dist/**/*'
+        '!dist/**/*',
+        '!logs',
+        '!logs/*',
+        '!logs/**/*'
       ]
       .pipe coffee()
       .on 'error', (e) ->
@@ -24,8 +28,8 @@ gulp.task 'default', () ->
         '**/*',
         '!*.coffee',
         '!**/*.coffee',
-        '!.git/*',
         '!.git',
+        '!.git/*',
         '!.gitignore',
         '!.dockerignore',
         '!Dockerfile',
@@ -33,8 +37,12 @@ gulp.task 'default', () ->
         '!node_modules',
         '!node_modules/*',
         '!node_modules/**/*',
+        '!dist',
         '!dist/*',
-        '!dist/**/*'
+        '!dist/**/*',
+        '!logs',
+        '!logs/*',
+        '!logs/**/*'
       ], {
         'allowEmpty': true
       }

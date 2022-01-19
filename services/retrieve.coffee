@@ -10,43 +10,14 @@ axiosInstance = axios.create {
   baseURL: 'https://api.spaceflightnewsapi.net/v3/articles'
 }
 
-exports.all = () ->
-  new Promise (accept, reject) ->
-    perPage = 500
-    db.sequelize.transaction( (tx) ->
-      new Promise (accept, reject) ->
-        axiosInstance.get('/count').then (countResponse) ->
-          total = (countResponse.data - countResponse.data % perPage) / perPage
-          get = (page) ->
-            new Promise (accept, reject) ->
-              offset = page * perPage
-              url = "?_sort=id&_limit=#{perPage}&_start=#{offset}"
-              axiosInstance.get(url).then (getArticlesResponse) ->
-                articleCtrl.createAll(getArticlesResponse.data, tx).then () ->
-                  accept()
-                .catch (err) ->
-                  reject err
-              .catch (err) ->
-                reject err
-          foreach([0..total], get).then () ->
-            accept()
-          .catch (err) ->
-            reject err
-        .catch (err) ->
-          reject err
-    ).then () ->
-      accept()
-    .catch (err) ->
-      reject err
-
-exports.setCron = () ->
+setCron = () ->
   cron.schedule '0 9 * * *', () ->
-    getNew().then () ->
+    update().then () ->
       logger.info "Executada atualização diária de artigos"
     .catch (err) ->
-      console.log err
+      logger.error err
 
-getNew = () ->
+update = () ->
   new Promise (accept, reject) ->
     perPage = 500
     db.sequelize.transaction( (tx) ->
@@ -88,3 +59,6 @@ getNew = () ->
       accept()
     .catch (err) ->
       reject err
+
+exports.setCron = setCron
+exports.update = update

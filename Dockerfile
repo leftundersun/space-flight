@@ -14,4 +14,4 @@ RUN npx gulp
 
 EXPOSE 3000
 
-CMD npm run start
+CMD npm run prod

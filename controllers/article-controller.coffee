@@ -147,8 +147,6 @@ edit = (data, id, tx=null) ->
           ).then () ->
 
             delete data.id
-            console.log '########## data'
-            console.log data
             Article.update(data, { where: { id: id }, transaction: tx }).then () ->
               
               updateArticleLaunches(article, data.launches, tx).then () ->

@@ -15,4 +15,6 @@ logger = createLogger {
   ]
 }
 
+logger.add new transports.Console()
+
 module.exports = logger

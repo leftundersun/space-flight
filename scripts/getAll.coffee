@@ -1,6 +1,8 @@
 retrieve = require '../services/retrieve'
+logger = require '../utils/logger'
 
-retrieve.all().then () ->
-	console.log 'Articles saved with success'
+retrieve.update().then () ->
+  message = "Executada atualização dos artigos"
+  logger.info message
 .catch (err) ->
-	console.log err
+  logger.error err

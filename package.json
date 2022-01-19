@@ -4,10 +4,15 @@
   "description": "Coodesh Back-End Challenge",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all step:** -s",
-    "step:migration": "sequelize db:migrate --config dist/config/db.js --migrations-path dist/migrations/",
-    "step:get-all": "node dist/scripts/getAll.js",
-    "step:start": "NODE_ENV=production node dist/index.js"
+    "predev": "gulp",
+    "dev": "npm-run-all dev:step:** -s",
+    "dev:step:migration": "sequelize db:migrate --config dist/config/db.js --migrations-path dist/migrations/",
+    "dev:step:get-all": "node dist/scripts/getAll.js",
+    "dev:step:start": "NODE_ENV=development nodemon dist/index.js",
+    "prod": "npm-run-all prod:step:** -s",
+    "prod:step:migration": "sequelize db:migrate --config dist/config/db.js --migrations-path dist/migrations/",
+    "prod:step:get-all": "node dist/scripts/getAll.js",
+    "prod:step:start": "NODE_ENV=production node dist/index.js"
   },
   "author": "sirhennig",
   "license": "ISC",
