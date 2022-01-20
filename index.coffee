@@ -4,7 +4,7 @@ express = require 'express'
 helmet = require 'helmet'
 morgan = require 'morgan'
 
-port = process.env.PORT or 3000
+port = process.env.PORT
 
 app = express()
 app.use express.json()

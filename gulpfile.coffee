@@ -7,6 +7,7 @@ gulp.task 'default', () ->
       gulp.src [
         '*.coffee',
         '**/*.coffee',
+        '!gulpfile.coffee',
         '!node_modules',
         '!node_modules/*',
         '!node_modules/**/*',

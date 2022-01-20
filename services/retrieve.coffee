@@ -15,7 +15,7 @@ setCron = () ->
     update().then () ->
       logger.info "Executada atualização diária de artigos"
     .catch (err) ->
-      logger.error err
+      logger.error "Erro durante atualização diária de artigos: " + err
 
 update = () ->
   new Promise (accept, reject) ->

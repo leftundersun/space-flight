@@ -6,13 +6,18 @@
   "scripts": {
     "predev": "gulp",
     "dev": "npm-run-all dev:step:** -s",
+    "dev:step:await-mysql": "node dist/scripts/check-mysql.js",
+    "dev:step:createdb": "sequelize db:create --config dist/config/db.js",
     "dev:step:migration": "sequelize db:migrate --config dist/config/db.js --migrations-path dist/migrations/",
-    "dev:step:get-all": "node dist/scripts/getAll.js",
-    "dev:step:start": "NODE_ENV=development nodemon dist/index.js",
+    "dev:step:get-all": "node dist/scripts/get-all.js",
+    "dev:step:start": "nodemon dist/index.js",
+    "preprod": "gulp",
     "prod": "npm-run-all prod:step:** -s",
+    "prod:step:await-mysql": "node dist/scripts/check-mysql.js",
+    "prod:step:createdb": "sequelize db:create --config dist/config/db.js",
     "prod:step:migration": "sequelize db:migrate --config dist/config/db.js --migrations-path dist/migrations/",
-    "prod:step:get-all": "node dist/scripts/getAll.js",
-    "prod:step:start": "NODE_ENV=production node dist/index.js"
+    "prod:step:get-all": "node dist/scripts/get-all.js",
+    "prod:step:start": "node dist/index.js"
   },
   "author": "sirhennig",
   "license": "ISC",

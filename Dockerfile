@@ -10,8 +10,5 @@ RUN npm install
 
 COPY . .
 
-RUN npx gulp
-
 EXPOSE 3000
-
 CMD npm run prod
