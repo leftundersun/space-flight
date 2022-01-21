@@ -23,22 +23,21 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
-    "bcrypt": "^5.0.1",
-    "dotenv": "^11.0.0",
     "express": "^4.17.2",
     "helmet": "^5.0.1",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "node-cron": "^3.0.0",
-    "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "sequelize": "^6.13.0",
     "sequelize-cli": "^6.4.1",
     "winston": "^3.4.0"
   },
   "devDependencies": {
+    "dotenv": "^11.0.0",
     "gulp": "^4.0.2",
-    "gulp-coffee": "^3.0.3"
+    "gulp-coffee": "^3.0.3",
+    "nodemon": "^2.0.15"
   }
 }
