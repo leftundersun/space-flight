@@ -6,7 +6,7 @@ module.exports = (itens, funcao, callback=null) ->
         next = ->
           index++
           if index < itens.length
-            exec(index)
+            exec index
           else
             accept()
 
